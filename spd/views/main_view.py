@@ -1,31 +1,37 @@
 import tkinter as tk
 from tkinter import filedialog
+import os
+import sys
 
-background_color = "#1ed660"
+IS_BUNDLED = hasattr(sys, "_MEIPASS")
+BUNDLE_DIR = getattr(
+    sys, "_MEIPASS", os.path.abspath(os.path.dirname(__file__))
+)
+
+IMAGE_PATH = "cat.png"
 
 class MainView(tk.Tk):
     def __init__(self, controller):
         super().__init__()
         self.controller = controller
-        self.title("Téléchargement de Playlist Spotify")
+        # self.geometry("450x600")
         
-        self['bg'] = background_color
+        self.background_color = "#0f1927"
+        self.text_color = "#71eff9"
+        self.title("Spotify Playlist Downloader")
+        self['bg'] = self.background_color
 
-        tk.Label(self, text="URL de la playlist Spotify :").pack()
-        self.url_entry = tk.Entry(self, width=50)
-        self.url_entry.pack()
+        tk.Label(self, text="Spotify playlist URL :", font=("Verdana", 24, "italic bold"), fg=self.text_color, bg=self.background_color).pack(pady=10)
+        self.url_entry = tk.Entry(self, width=50, bg=self.background_color, fg="white", highlightbackground="#e04cb7", highlightcolor=self.text_color)
+        self.url_entry.pack(padx=10)
 
-        self.infos_button = tk.Button(self, text="Infos playlist", command=self.get_playlist)
-        self.infos_button.pack()
+        self.download_button = tk.Button(self, text="Browse folder", borderwidth=0, font=("Verdana", 16), highlightbackground=self.text_color, background=self.background_color, command=self.download_playlist)
+        self.download_button.pack(pady=10)
 
-        self.download_button = tk.Button(self, text="Sélectionner le dossier de destination", command=self.download_playlist)
-        self.download_button.pack()
-    
-    def get_playlist(self):
-        playlist_url = self.url_entry.get()
-        playlist = self.controller.get_playlist(playlist_url)
-        for track in playlist:
-            tk.Label(self, text=f"Titre : {track["name"]}, Artist : {track["artist"]}").pack()
+        image_path = os.path.abspath(os.path.join(BUNDLE_DIR, IMAGE_PATH))
+        self.image = tk.PhotoImage(file=image_path)
+        self.image = self.image.subsample(2) 
+        tk.Label(self, image=self.image, borderwidth=0).pack()
 
     def download_playlist(self):
         playlist_url = self.url_entry.get()

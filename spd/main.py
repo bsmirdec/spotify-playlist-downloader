@@ -1,5 +1,8 @@
 from spd.controllers.main_controller import MainController
 
-if __name__ == "__main__":
+def main():
     controller = MainController()
     controller.run()
+
+if __name__ == "__main__":
+    main()
