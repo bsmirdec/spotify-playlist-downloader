@@ -2,7 +2,7 @@
 
 ## How to run the spotify-playlist-downloader executable
 
-- First, copy the file at a selected location on your laptop.
+- First, copy the file called **spotify-playlist-downloader** at a selected location on your laptop.
 - Then, using the terminal and the "cd" command, go to the actual folder where you put the file. Here is an exemple of command :
 
 ```
@@ -15,7 +15,7 @@ cd Desktop/destination_folder/
 ls
 ```
 
-and see the <span style="color: green;">spotify-playlist-downloader</span> in the ouptut
+and see the **spotify-playlist-downloader** in the ouptut
 
 - Finally, run the command :
 
